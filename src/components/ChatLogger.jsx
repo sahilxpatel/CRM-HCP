@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { fetchInteractions } from "../redux/interactionsSlice";
 
 import { chatWithAgent } from "../services/api";
 
@@ -12,6 +15,11 @@ const ChatLogger = () => {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchInteractions());
+  }, [dispatch]);
 
   const buildDecisionLine = (response) => {
     if (!response || !response.intent) {
@@ -80,6 +88,10 @@ const ChatLogger = () => {
         ...prev,
         { role: "assistant", content: response.response, meta: decisionLine },
       ]);
+      // Give backend ~300ms to commit DB so we fetch the latest data
+      setTimeout(() => {
+        dispatch(fetchInteractions());
+      }, 300);
     } catch (error) {
       setStatus("Error: Could not reach the agent");
       setMessages((prev) => [
