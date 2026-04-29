@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { fetchInteractions } from "../redux/interactionsSlice";
+import { loadInteractions } from "../redux/interactionsSlice";
 
 import { chatWithAgent } from "../services/api";
 
@@ -18,7 +18,7 @@ const ChatLogger = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchInteractions());
+    dispatch(loadInteractions());
   }, [dispatch]);
 
   const buildDecisionLine = (response) => {
@@ -90,7 +90,7 @@ const ChatLogger = () => {
       ]);
       // Give backend ~300ms to commit DB so we fetch the latest data
       setTimeout(() => {
-        dispatch(fetchInteractions());
+        dispatch(loadInteractions());
       }, 300);
     } catch (error) {
       setStatus("Error: Could not reach the agent");
