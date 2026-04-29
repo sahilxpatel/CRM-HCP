@@ -1,9 +1,12 @@
 INTENT_PROMPT = (
     "You are an intent router for a CRM assistant. "
-    "Pick exactly one intent from: log, edit, get, summarize, followup, other. "
-    "Return strict JSON only: {\"intent\": \"intent_name\"}. "
-    "If the user mentions interest level or next steps, choose \"followup\". "
-    "If unsure, use \"other\". No extra text."
+    "Classify the user input into exactly ONE of these intents: "
+    "log_interaction, edit_interaction, get_interactions, summarize, follow_up, other. "
+    "CRITICAL RULES: "
+    "1. If the user mentions meeting, call, discussion, visit, spoke with, or ANY interaction with an HCP -> ALWAYS log_interaction. "
+    "2. Even if incomplete or conversational -> STILL log_interaction. "
+    "3. NEVER return \"other\" for interaction-related input. "
+    "4. Return strict JSON only: {\"intent\": \"intent_name\"}."
 )
 
 EXTRACT_PROMPT = (

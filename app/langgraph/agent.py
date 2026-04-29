@@ -27,13 +27,13 @@ def build_agent(db):
         except Exception:
             intent = None
 
-        allowed = {"log", "edit", "get", "summarize", "followup", "other"}
+        allowed = {"log_interaction", "edit_interaction", "get_interactions", "summarize", "follow_up", "other"}
         if intent not in allowed:
             retry_messages = [
                 {
                     "role": "system",
                     "content": (
-                        "Return JSON only: {\"intent\": \"log|edit|get|summarize|followup|other\"}."
+                        "Return JSON only: {\"intent\": \"log_interaction|edit_interaction|get_interactions|summarize|follow_up|other\"}."
                     ),
                 },
                 {"role": "user", "content": user_text},
@@ -46,12 +46,12 @@ def build_agent(db):
                 intent = None
 
         if intent not in allowed:
-            intent = "other"
+            intent = "log_interaction"
 
         return {"intent": intent}
 
     def route(state: AgentState) -> str:
-        return state.get("intent", "other")
+        return state.get("intent", "log_interaction")
 
     def build_response(state: AgentState) -> AgentState:
         if state.get("response"):
@@ -96,11 +96,11 @@ def build_agent(db):
         "detect_intent",
         route,
         {
-            "log": "log_interaction",
-            "edit": "edit_interaction",
-            "get": "get_interactions",
+            "log_interaction": "log_interaction",
+            "edit_interaction": "edit_interaction",
+            "get_interactions": "get_interactions",
             "summarize": "summarize_interaction",
-            "followup": "followup_suggestion",
+            "follow_up": "followup_suggestion",
             "other": "build_response",
         },
     )

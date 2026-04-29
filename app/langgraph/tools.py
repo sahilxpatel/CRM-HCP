@@ -113,7 +113,7 @@ class AgentTools:
                 "action": "log",
                 "interaction": self._serialize_interaction(interaction),
             },
-            "intent": "log",
+            "intent": "log_interaction",
         }
 
     def edit_interaction(self, state: Dict[str, Any]) -> Dict[str, Any]:
@@ -153,7 +153,7 @@ class AgentTools:
                     "action": "edit",
                     "error": "No matching interaction found to update",
                 },
-                "intent": "edit",
+                "intent": "edit_interaction",
             }
 
         notes_value = extracted.get("notes")
@@ -179,7 +179,7 @@ class AgentTools:
                     "action": "edit",
                     "error": f"Interaction {interaction.id} not found",
                 },
-                "intent": "edit",
+                "intent": "edit_interaction",
             }
 
         return {
@@ -187,7 +187,7 @@ class AgentTools:
                 "action": "edit",
                 "interaction": self._serialize_interaction(updated),
             },
-            "intent": "edit",
+            "intent": "edit_interaction",
         }
 
     def get_interactions(self, state: Dict[str, Any]) -> Dict[str, Any]:
@@ -195,7 +195,7 @@ class AgentTools:
         serialized = [self._serialize_interaction(item) for item in interactions]
         return {
             "tool_result": {"action": "get", "items": serialized},
-            "intent": "get",
+            "intent": "get_interactions",
         }
 
     def summarize_interaction(self, state: Dict[str, Any]) -> Dict[str, Any]:
@@ -301,5 +301,5 @@ class AgentTools:
                 "action": "followup",
                 "suggestion": suggestion,
             },
-            "intent": "followup",
+            "intent": "follow_up",
         }
