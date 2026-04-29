@@ -64,6 +64,16 @@ Response to User
 - Summarize my last meeting
 - What should I do next for Dr. Shah?
 
+## Demo Flow
+1. Log interaction via chat:
+   "I met Dr. Shah yesterday and discussed diabetes pricing"
+2. AI extracts and stores structured data
+3. Update interaction:
+   "Update Dr. Shah interaction to include competitor discussion"
+4. Ask for follow-up:
+   "What should I do next for Dr. Shah?"
+5. View interaction history with AI summaries
+
 ## Setup Instructions
 
 ### Backend
@@ -88,6 +98,15 @@ Response to User
 - Context-aware follow-up recommendations
 - Automatic summarization
 - Real-time interaction updates
+
+## Why LangGraph?
+LangGraph is used to:
+- Enable dynamic decision-making using LLMs
+- Route user input to appropriate tools without hardcoded logic
+- Maintain a structured agent workflow
+
+This ensures the system behaves like an intelligent assistant rather than a
+rule-based application.
 
 ## Design Decisions
 - LangGraph used for agent orchestration instead of simple routing
